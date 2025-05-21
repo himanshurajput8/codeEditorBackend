@@ -7,12 +7,20 @@ dotenv.config();
 
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://code-editor-five-alpha.vercel.app',
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 const server = http.createServer(app);
+
 
 const io = new Server(server, {
   cors: {
-    origin: '*', //  frontend origin
+    // origin: '*', 
+    origin: 'https://code-editor-five-alpha.vercel.app',
+    methods: ['GET', 'POST'],
+    credentials: true
   },
 });
 
