@@ -9,11 +9,9 @@ module.exports = (io) => {
       console.log(`${socket.id} joined room ${roomId}`);
     });
 
-    socket.on('code-change', ({ data }) => {
-      // Broadcast to others in the same room
-      // socket.to(roomId).emit('code-change', { data });
-
-      socket.broadcast.emit('code-update', data)
+    socket.on('code-change', ({ roomId, data }) => {
+      // Broadcast to everyone in the room except sender
+      socket.to(roomId).emit('code-update', data);
     });
 
     socket.on('disconnect', () => {

@@ -39,3 +39,23 @@ server.listen(PORT, () => {
     console.log(`Server is live on port ${PORT}`);
 
 });
+//
+module.exports = (io) => {
+  io.on('connection', (socket) => {
+    console.log(`Socket connected: ${socket.id}`);
+
+    socket.on('join-room', (roomId) => {
+      socket.join(roomId);
+      console.log(`${socket.id} joined room: ${roomId}`);
+    });
+
+    socket.on('code-change', ({ roomId, data }) => {
+      // Broadcast to everyone except sender in that room
+      socket.to(roomId).emit('code-update', data);
+    });
+
+    socket.on('disconnect', () => {
+      console.log(`Socket disconnected: ${socket.id}`);
+    });
+  });
+};
