@@ -12,7 +12,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: '*', // Allow all for now (limit later)
+    origin: '*', //  frontend origin
   },
 });
 
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
   res.send('CodeShare backend running...');
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 server.listen(PORT, () => {
     console.log('running');
     
