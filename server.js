@@ -54,8 +54,19 @@ module.exports = (io) => {
       socket.to(roomId).emit('code-update', data);
     });
 
+      // 👇 New: Cursor movement handling
+    socket.on('cursor-move', ({ roomId, cursorData }) => {
+      socket.to(roomId).emit('cursor-update', {
+        socketId: socket.id,
+        cursorData, // e.g., { lineNumber: 3, column: 15 }
+      });
+    });
+
     socket.on('disconnect', () => {
       console.log(`Socket disconnected: ${socket.id}`);
     });
+
+    
+    
   });
 };
