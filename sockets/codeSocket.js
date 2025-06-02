@@ -3,6 +3,7 @@ const rooms = {};
 module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log(`Socket connected: ${socket.id}`);
+    console.log(`Socket connected: ${socket.id}`);
 
     socket.on('join-room', ({ roomId, username }) => {
       socket.join(roomId);

@@ -13,10 +13,10 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: '*', 
-    // origin: ['http://localhost:5173', 'https://code-editor-five-alpha.vercel.app'],
-    // methods: ['GET', 'POST'],
-    // credentials: true
+    // origin: '*', 
+    origin: 'https://code-editor-five-alpha.vercel.app',    
+    methods: ['GET', 'POST'],
+    credentials: true
   },
 });
 
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
   res.send('CodeShare backend running...');
 });
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
     console.log('running');
     
