@@ -4,9 +4,30 @@ const roomCodes = {};
 module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log(`Socket connected: ${socket.id}`);
+    app.get('/room-exists/:roomId', (req, res) => {
+    const roomId = req.params.roomId;
+    const room = activeRooms[roomId]; // Or however you store rooms
+
+    if (room) {
+        res.json({ exists: true });
+    } else {
+        res.json({ exists: false });
+    }
+});
+
+    socket.on('check-room', (roomId, callback) => {
+      const exists = !!rooms[roomId];
+      callback({ exists });
+    });
 
     socket.on('join-room', ({ roomId, username }) => {
-      if (!roomId || !username) return;
+
+      if (!roomId || !username || typeof roomId !== 'string' || roomId.length !== 12) {
+        socket.emit('join-error', { message: 'Invalid or malformed room ID' });
+        console.log(`Join failed: Invalid room ID (${roomId}) or username`);
+        return;
+      }
+
       socket.join(roomId);
       socket.username = username;
 

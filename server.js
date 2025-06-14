@@ -24,7 +24,6 @@ const roomRoutes = require('./routes/roomRoutes');
 // ye rooms related rules bula raha hai roomRoutes.js file se
 app.use('/api/room', roomRoutes);
 
-
 // Real-time socket logic
 require('./sockets/codeSocket')(io);
 
